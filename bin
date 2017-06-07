@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+
+const path = require('path')
+const gitWatch = require('./')
+const fs = require('fs-extra')
+const exec = require('child_process').exec
+const argv = require('yargs').argv
+
+if (argv.help || argv.h) {
+    console.log('Git Watch')
+    console.log('Simply watches for file changes that match against "git status"')
+    console.log('--dir | -d git_folder_location, defaults to process.cwd()')
+    console.log('--cmd | -c the command needed to be run when a file changes, passes the file as $1 into the command')
+    console.log('--help | -h run this help message')
+    console.log('e.g. git-watch -c "npm test $1"')
+    process.exit()
+}
+
+const cmd = argv.cmd || argv.c || false
+
+if (!cmd) {
+    console.error('You need to pass in a command e.g. --cmd="npm test $1"')
+    process.exit(1)
+}
+
+let dir = argv.dir || argv.d || process.cwd()
+dir = path.resolve(__dirname, dir)
+
+if (!fs.existsSync(dir)) {
+    console.error('Could not find', dir)
+    process.exit(1)
+}
+
+if (!fs.statSync(dir).isDirectory()) {
+    console.error('Not a directory', dir)
+    process.exit(1)
+}
+
+gitWatch(dir, (gitError, fileName, watchEvent, gitStatus) => {
+    if (gitError) console.error(gitError)
+    let cmdToRun = cmd
+    if (cmd.includes('$1')) cmdToRun = cmdToRun.replace('$1', fileName)
+    else cmdToRun = `${cmdToRun} ${fileName}`
+    exec(cmdToRun, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`)
+            return
+        }
+        if (stdout) console.log(stdout)
+        if (stderr) console.error(stderr)
+    })
+})

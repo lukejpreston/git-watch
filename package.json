@@ -1,0 +1,23 @@
+{
+  "name": "git-watch",
+  "version": "1.0.0",
+  "description": "Like watch but only on files which change using git status",
+  "main": "index.js",
+  "bin": "bin",
+  "files": ["bin", "index.js"],
+  "scripts": {
+    "bin": "./bin -d ./ --cmd 'echo $1 again'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luke Preston <lukejpreston@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "git": "^0.1.5",
+    "node-watch": "^0.5.4",
+    "simple-git": "^1.73.0",
+    "yargs": "^8.0.1"
+  },
+  "devDependencies": {
+    "fs-extra": "^3.0.1"
+  }
+}
