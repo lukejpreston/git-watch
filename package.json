@@ -1,10 +1,13 @@
 {
   "name": "git-watch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Like watch but only on files which change using git status",
   "main": "index.js",
   "bin": "bin",
-  "files": ["bin", "index.js"],
+  "files": [
+    "bin",
+    "index.js"
+  ],
   "scripts": {
     "bin": "./bin -d ./ --cmd 'echo $1 again'"
   },
