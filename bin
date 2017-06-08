@@ -24,7 +24,7 @@ if (!cmd) {
 }
 
 let dir = argv.dir || argv.d || process.cwd()
-dir = path.resolve(__dirname, dir)
+dir = path.resolve(process.cwd(), dir)
 
 if (!fs.existsSync(dir)) {
     console.error('Could not find', dir)
