@@ -1,12 +1,12 @@
 {
   "name": "git-watch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Like watch but only on files which change using git status",
   "main": "index.js",
   "bin": "bin",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lukejpreston/git-watch"
+    "type": "git",
+    "url": "https://github.com/lukejpreston/git-watch"
   },
   "keywords": [
     "git",
